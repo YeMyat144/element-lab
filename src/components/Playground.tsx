@@ -21,7 +21,7 @@ const Playground: React.FC = () => {
     html: defaultTemplates.html,
     css: defaultTemplates.css,
     javascript: defaultTemplates.javascript,
-    props: { title: 'Hello BlockBox!', color: 'blue', size: 'md' },
+    props: { title: 'Hello ElementLab!', color: 'blue', size: 'md' },
   });
   
   const [compiledCode, setCompiledCode] = useState('');
@@ -62,7 +62,7 @@ const Playground: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'blockbox-component.json';
+    a.download = 'ElementLab-component.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -104,7 +104,7 @@ const Playground: React.FC = () => {
       >
         <HStack spacing={4}>
           <Text fontSize="2xl" fontWeight="bold" color="brand.500">
-            BlockBox
+            ElementLab
           </Text>
           <Badge colorScheme="brand" variant="subtle">
             Live Playground

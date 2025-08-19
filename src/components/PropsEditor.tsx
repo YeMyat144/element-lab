@@ -1,34 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  VStack, 
-  FormControl, 
-  FormLabel, 
-  Input, 
-  Select, 
-  Switch, 
-  NumberInput, 
-  NumberInputField, 
-  NumberInputStepper, 
-  NumberIncrementStepper, 
-  NumberDecrementStepper, 
-  Textarea, 
-  Box, 
-  Text, 
-  Divider, 
-  Button, 
-  HStack, 
-  IconButton, 
-  useColorModeValue,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Badge
-} from '@chakra-ui/react';
+import {  VStack,  FormControl,  FormLabel,  Input,  Select,  Switch,  NumberInput,  NumberInputField,  NumberInputStepper,  NumberIncrementStepper,  NumberDecrementStepper,  Textarea,  Box,  Text,  Divider,  Button,  HStack,  IconButton,  useColorModeValue, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, Badge } from '@chakra-ui/react';
 import { AddIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
 
 interface PropDefinition {
