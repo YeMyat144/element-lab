@@ -44,8 +44,8 @@ const PreviewPanel: React.FC<PreviewPanelProps> = ({
                   margin: 0;
                   padding: 20px;
                   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-                  background: ${useColorModeValue('#ffffff', '#1a202c')};
-                  color: ${useColorModeValue('#1a202c', '#ffffff')};
+                  background: ${bgColor === 'white' ? '#ffffff' : '#1a202c'};
+                  color: ${bgColor === 'white' ? '#1a202c' : '#ffffff'};
                   line-height: 1.5;
                 }
                 .preview-container {
