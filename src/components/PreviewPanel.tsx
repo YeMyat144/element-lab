@@ -29,8 +29,35 @@ const PreviewPanel: React.FC<PreviewPanelProps> = ({
         const doc = iframe.contentDocument;
         
         if (doc) {
+          // Parse the compiled code to extract CSS and HTML
+          let cssContent = '';
+          let htmlContent = compiledCode;
+          let jsContent = '';
+          
+          // Extract CSS if present
+          if (compiledCode.includes('<style>') && compiledCode.includes('</style>')) {
+            const styleMatch = compiledCode.match(/<style>([\s\S]*?)<\/style>/);
+            if (styleMatch) {
+              cssContent = styleMatch[1];
+              htmlContent = compiledCode.replace(/<style>[\s\S]*?<\/style>/, '');
+              console.log('Extracted CSS:', cssContent);
+            }
+          }
+          
+          // Extract JavaScript if present
+          if (compiledCode.includes('<script>') && compiledCode.includes('</script>')) {
+            const scriptMatch = compiledCode.match(/<script>([\s\S]*?)<\/script>/);
+            if (scriptMatch) {
+              jsContent = scriptMatch[1];
+              htmlContent = htmlContent.replace(/<script>[\s\S]*?<\/script>/, '');
+              console.log('Extracted JS:', jsContent);
+            }
+          }
+          
+          console.log('Final HTML content:', htmlContent);
+          
           // Create the HTML document with proper styling and error handling
-          const htmlContent = `
+          const fullHtmlContent = `
             <!DOCTYPE html>
             <html>
             <head>
@@ -63,12 +90,12 @@ const PreviewPanel: React.FC<PreviewPanelProps> = ({
                   font-family: monospace;
                   white-space: pre-wrap;
                 }
-                ${compiledCode.includes('<style>') ? '' : compiledCode}
+                ${cssContent}
               </style>
             </head>
             <body>
               <div class="preview-container">
-                <div id="app">${compiledCode.includes('<style>') ? compiledCode.split('<style>')[0] : compiledCode}</div>
+                <div id="app">${htmlContent}</div>
               </div>
               <script>
                 window.onerror = function(msg, url, lineNo, columnNo, error) {
@@ -82,10 +109,7 @@ const PreviewPanel: React.FC<PreviewPanelProps> = ({
                   window.props = ${JSON.stringify(props)};
                   
                   // Execute any JavaScript code
-                  ${compiledCode.includes('<script>') ? 
-                    compiledCode.split('<script>')[1]?.split('</script>')[0] || '' : 
-                    ''
-                  }
+                  ${jsContent}
                   
                   // Signal that loading is complete
                   window.parent.postMessage({ type: 'loaded' }, '*');
@@ -100,7 +124,7 @@ const PreviewPanel: React.FC<PreviewPanelProps> = ({
           `;
           
           doc.open();
-          doc.write(htmlContent);
+          doc.write(fullHtmlContent);
           doc.close();
         }
       } catch (err) {
@@ -108,7 +132,7 @@ const PreviewPanel: React.FC<PreviewPanelProps> = ({
         setIsLoading(false);
       }
     }
-  }, [compiledCode, props]);
+  }, [compiledCode, props, bgColor]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {

@@ -56,7 +56,7 @@ export const defaultTemplates = {
 }
 
 /* Color variants */
-.btn-blue { background: #3182ce; }
+.btn-blue { background: #448EE4 ; }
 .btn-green { background: #38a169; }
 .btn-red { background: #e53e3e; }
 .btn-purple { background: #805ad5; }
@@ -111,6 +111,9 @@ export const compileCode = (state: ComponentState): string => {
   if (state.javascript.trim()) {
     result = `${result}\n<script>${state.javascript}</script>`;
   }
+  
+  // Debug log to see the compiled result
+  console.log('Compiled code:', result);
   
   return result;
 };
